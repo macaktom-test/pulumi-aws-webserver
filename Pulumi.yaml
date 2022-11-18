@@ -1,0 +1,6 @@
+name: pulumi-webserver-test
+description: Project to create webserver in AWS - testing Pulumi
+runtime:
+    name: python
+    options:
+        virtualenv: venv
