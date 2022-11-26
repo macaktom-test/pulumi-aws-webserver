@@ -12,10 +12,12 @@ cfg = pulumi.Config()
 web_server_eip = aws.ec2.Eip(
     'web-server-eip',
     vpc = True,
-    instance = inst.web_server_inst.id,
     network_interface = inst_prop.web_server_nic.id,
-    associate_with_private_ip = cfg.require("web_server_priv_ip"),
-    opts = pulumi.ResourceOptions(depends_on=[net.main_gw])
+    instance = inst.web_server_inst.id,
+    opts = pulumi.ResourceOptions(depends_on=[net.main_gw]),
+    tags={
+      'Name': cfg.require("eip_name")
+    }
   )
 
 

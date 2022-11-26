@@ -4,6 +4,7 @@ import networking as net
 
 
 cfg = pulumi.Config()
+webserver_prop = cfg.require_object("webserver_ec2_inst")
 
 
 ubuntu_ami = aws.ec2.get_ami(
@@ -19,7 +20,7 @@ ubuntu_ami = aws.ec2.get_ami(
 web_server_nic = aws.ec2.NetworkInterface(
     'web-server-nic',
     subnet_id = net.main_subnet.id,
-    private_ips = [cfg.require("web_server_priv_ip")],
+    private_ips = [webserver_prop.get("priv_ip")],
     security_groups = [net.sg_allow_web.id],
 )
 

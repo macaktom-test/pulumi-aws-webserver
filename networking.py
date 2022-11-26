@@ -4,11 +4,14 @@ import pulumi_aws as aws
 
 cfg = pulumi.Config()
 
+vpc_main_data = cfg.require_object("vpc_main")
+public_subnet_data = cfg.require_object("public_subnet_main")
+
 vpc = aws.ec2.Vpc(
     'main-vpc',
-    cidr_block=cfg.require("vpc_cidr"),
+    cidr_block=vpc_main_data.get("cidr"),
     tags={
-        'Name': cfg.require("vpc_name")
+        'Name': vpc_main_data.get("name")
     }
 )
 
@@ -41,9 +44,9 @@ route_table = aws.ec2.RouteTable(
 main_subnet = aws.ec2.Subnet(
         'main-subnet1',
         vpc_id = vpc.id,
-        cidr_block = cfg.require("public_subnet_cidr"),
+        cidr_block = public_subnet_data.get("cidr"),
         tags={
-        'Name': cfg.require("public_subnet_name")
+        'Name': public_subnet_data.get("name")
     }
 )
 

@@ -1,15 +1,18 @@
 config:
   aws:region: us-east-1
   aws:sharedCredentialsFile: creds
-  pulumi-webserver-test:ec2_inst_name: web-server
-  pulumi-webserver-test:eip_name: ""
-  pulumi-webserver-test:igw_name: main-gw
-  pulumi-webserver-test:instance_type: t2.micro
-  pulumi-webserver-test:key_name: main-key
-  pulumi-webserver-test:pub_route_table_name: main-route-table
-  pulumi-webserver-test:public_subnet_cidr: 10.0.1.0/24
-  pulumi-webserver-test:public_subnet_name: main-subnet1
-  pulumi-webserver-test:vpc_cidr: 10.0.0.0/16
-  pulumi-webserver-test:vpc_name: main-vpc
+  pulumi-webserver-test:webserver_ec2_inst: 
+    name: web-server
+    type: t2.micro 
+    key_name: main-key
+    priv_ip: 10.0.1.50
   pulumi-webserver-test:web_sec_grp_name: allow-web
-  pulumi-webserver-test:web_server_priv_ip: 10.0.1.50
+  pulumi-webserver-test:eip_name: "webserver-eip"
+  pulumi-webserver-test:igw_name: main-gw
+  pulumi-webserver-test:pub_route_table_name: main-route-table
+  pulumi-webserver-test:public_subnet_main: 
+    name: main-subnet1
+    cidr: 10.0.1.0/24
+  pulumi-webserver-test:vpc_main: 
+    name: main-vpc
+    cidr: 10.0.0.0/16
